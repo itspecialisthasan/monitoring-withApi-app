@@ -1,0 +1,87 @@
+<html>
+<head>
+    <title>iisnode logs</title>
+    <style type="text/css">
+        body
+        {
+            font-family: "Trebuchet MS" , Arial, Helvetica, sans-serif;
+        }
+        table
+        {
+            border-collapse: collapse;
+        }
+        td, th
+        {
+            border: 1px solid lightgray;
+            padding: 3px 7px 2px 7px;
+        }
+        th
+        {
+            text-align: left;
+            padding-top: 5px;
+            padding-bottom: 4px;
+            background-color: Gray;
+            color: #ffffff;
+        }
+        td.stderr
+        {
+            color: Red;
+        }
+    </style>
+</head>
+<body>
+    <table id="logFilesTable">
+        <tr>
+            <th>
+                Computer name
+            </th>
+            <th>
+                PID
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Created
+            </th>
+            <th>
+                Link
+            </th>
+        </tr>
+    </table>
+    <p id="lastUpdated"></p>
+    <script type="text/javascript">
+
+        // this is replaced with actual data at runtime by code in interceptor.js
+        var logFiles = [{"file":"ITSTECKYHK-10248-stderr-1672518033083.txt","computername":"ITSTECKYHK","pid":10248,"type":"stderr","created":1672518033083},{"file":"ITSTECKYHK-11556-stderr-1672517983856.txt","computername":"ITSTECKYHK","pid":11556,"type":"stderr","created":1672517983856},{"file":"ITSTECKYHK-11892-stderr-1672517362647.txt","computername":"ITSTECKYHK","pid":11892,"type":"stderr","created":1672517362647},{"file":"ITSTECKYHK-11900-stderr-1672517377315.txt","computername":"ITSTECKYHK","pid":11900,"type":"stderr","created":1672517377315},{"file":"ITSTECKYHK-13268-stderr-1672518521189.txt","computername":"ITSTECKYHK","pid":13268,"type":"stderr","created":1672518521189},{"file":"ITSTECKYHK-1732-stderr-1672517360477.txt","computername":"ITSTECKYHK","pid":1732,"type":"stderr","created":1672517360477},{"file":"ITSTECKYHK-2596-stderr-1672518523606.txt","computername":"ITSTECKYHK","pid":2596,"type":"stderr","created":1672518523606},{"file":"ITSTECKYHK-2860-stderr-1672519180183.txt","computername":"ITSTECKYHK","pid":2860,"type":"stderr","created":1672519180183},{"file":"ITSTECKYHK-3292-stderr-1672516676923.txt","computername":"ITSTECKYHK","pid":3292,"type":"stderr","created":1672516676923},{"file":"ITSTECKYHK-4008-stderr-1672519176744.txt","computername":"ITSTECKYHK","pid":4008,"type":"stderr","created":1672519176744},{"file":"ITSTECKYHK-7364-stderr-1672517980398.txt","computername":"ITSTECKYHK","pid":7364,"type":"stderr","created":1672517980398},{"file":"ITSTECKYHK-7892-stderr-1672517379404.txt","computername":"ITSTECKYHK","pid":7892,"type":"stderr","created":1672517379404},{"file":"ITSTECKYHK-8660-stderr-1672516673618.txt","computername":"ITSTECKYHK","pid":8660,"type":"stderr","created":1672516673618}];
+        var lastUpdated = 1672519180327;
+        var date = new Date();
+
+        date.setTime(lastUpdated);
+        document.getElementById('lastUpdated').innerHTML = 'Index was last updated ' + date;
+
+        logFiles.sort(function (a, b) {
+            return b.created - a.created;
+        });
+
+        var logFilesTable = document.getElementById("logFilesTable");
+        for (var i = 0; i < logFiles.length; i++) {
+            var logFile = logFiles[i];
+            date.setTime(logFile.created);
+            var row = logFilesTable.insertRow(-1);
+            var computerNameCell = row.insertCell(0);
+            var pidCell = row.insertCell(1);
+            var typeCell = row.insertCell(2);
+            var dateCell = row.insertCell(3);
+            var logCell = row.insertCell(4);
+            computerNameCell.innerHTML = logFile.computername;
+            pidCell.innerHTML = logFile.pid.toString();
+            typeCell.innerHTML = logFile.type;
+            typeCell.setAttribute('class', logFile.type);
+            dateCell.innerHTML = date.toString();
+            logCell.innerHTML = '<a href="' + logFile.file + '">log</a>';
+        };
+
+    </script>
+</body>
+</html>
